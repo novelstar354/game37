@@ -89,6 +89,19 @@ canvas{
  color:#64748b;
  margin-top:4px;
 }
+#restartBtn{
+  font-size:18px;
+  padding:8px 18px;
+  border:none;
+  border-radius:999px;
+  background:#22c55e;
+  color:white;
+  cursor:pointer;
+}
+#restartBtn:hover{
+  background:#16a34a;
+}
+
 </style>
 </head>
 <body>
@@ -112,7 +125,11 @@ canvas{
  タイカの線：🍉→🍈→🍍→🍑→🍐→🍎→🍊→🍇→🍓→🍒
 </div>
 
- <div id="over" class="over" style="display:none">GAME OVER</div>
+<div id="over" class="over" style="display:none">
+  <div>GAME OVER</div>
+  <button id="restartBtn">RESTART</button>
+</div>
+
 </div>
 
 <script>
@@ -389,18 +406,30 @@ Events.on(engine,"collisionStart",e=>{
 
 Events.on(engine,"beforeUpdate",()=>{
  if(gameOver) return;
- const danger=engine.world.bodies
-  .filter(b=>b.fruitType!==undefined && b.position.y<90);
- if(danger.length){
-  overTimer+=engine.timing.delta;
-  if(overTimer>800){
-   gameOver=true;
+
+ const isDanger = engine.world.bodies.some(b=>{
+   if(b.fruitType===undefined) return false;
+
+   // 生成直後は無視（まだ上にあるため）
+   if(b.position.y < 197) return false;
+
+   const top = b.position.y - b.circleRadius;
+   return top < 130;
+ });
+
+ if(isDanger){
+   gameOver = true;
    guide.style.display="none";
    overEl.style.display="flex";
    save();
-  }
- }else overTimer=0;
+ }
 });
+
+});
+document.getElementById("restartBtn").onclick = ()=>{
+  fullReset();
+};
+
 
 document.getElementById("resetBtn").onclick=fullReset;
 load();
