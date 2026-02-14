@@ -2,7 +2,7 @@
 <html lang="ja">
 <head>
 <meta charset="UTF-8">
-<title>サクランボゲーム</title>
+<title>フルーツゲーム</title>
 <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
 <link rel="icon" href="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcShVzGufkaFQcjBqPmMnsxRO2-Jc9B39uTG3A&s" sizes="16×16" type="image/png" /> 
 <script src="https://cdn.jsdelivr.net/npm/matter-js@0.19.0/build/matter.min.js"></script>
@@ -134,7 +134,7 @@ canvas{
 
 <script>
 const {Engine,Render,Runner,Bodies,World,Events,Sleeping}=Matter;
-const SAVE_KEY="suika2";
+const SAVE_KEY="suika1";
 
 const canvas=document.getElementById("world");
 const wrap=document.getElementById("wrap");
@@ -182,7 +182,7 @@ Runner.run(Runner.create(),engine);
 ]; */
 /* 🍎 本家サイズ比 */
 const fruits=[
-{e:"🍉",r:62,s:1640,d:0.004},
+{e:"🍉",r:62,s:2048,d:0.004},
 {e:"🍈",r:56,s:1280,d:0.0035},
 {e:"🍍",r:50,s:960,d:0.0032},
 {e:"🍑",r:44,s:640,d:0.003},
@@ -192,6 +192,15 @@ const fruits=[
 {e:"🍇",r:23,s:40,d:0.0015},
 {e:"🍓",r:18,s:20,d:0.0012},
 {e:"🍒",r:14,s:10,d:0.001},
+ 
+ 
+ 
+
+ 
+
+
+
+ 
 ];
 
 let score=0,highScore=0;
@@ -425,7 +434,6 @@ Events.on(engine,"beforeUpdate",()=>{
  }
 });
 
-});
 document.getElementById("restartBtn").onclick = ()=>{
   fullReset();
 };
